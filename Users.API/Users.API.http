@@ -14,8 +14,8 @@ GET {{Users.API_HostAddress}}/api/Users/3
 POST {{Users.API_HostAddress}}/api/Users/
 Content-Type: application/json
 {
-  "userName": "MikroCop",
-  "fullName": "MikroCop",
+  "userName": "MikroCop2",
+  "fullName": "MikroCop2",
   "email": "MikroCop@gmail.com",
   "mobile": "/",
   "language": "English",
