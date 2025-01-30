@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Users.Infrastructure.Persistence;
 using Microsoft.Extensions.Configuration;
 using Users.Infrastructure.Seeders;
+using Users.Infrastructure.Repositories;
+using Users.Domain.Repositories;
 
 namespace Users.Infrastructure.Extensions
 {
@@ -14,7 +16,7 @@ namespace Users.Infrastructure.Extensions
             services.AddDbContext<UsersDbContext>(options => options.UseSqlServer(connectionString));
 
             services.AddScoped<IUserSeeder, UserSeeder>();
-
+            services.AddScoped<IUsersRepository, UsersRepository>();
         }
     }
 }

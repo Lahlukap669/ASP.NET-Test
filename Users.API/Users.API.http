@@ -3,22 +3,6 @@
 
 @Users.API_HostAddress = {{Host}}:{{Port}}
 
-GET {{Users.API_HostAddress}}/weatherforecast/
-Accept: application/json
-ProjectURL: {{$projectUrl}}
-Guid: {{$guid}}
-LocalDate: {{$datetime iso8601}}
-Random-int: {{$randomInt}}
+GET {{Users.API_HostAddress}}/api/Users/
 
 ###
-
-GET {{Users.API_HostAddress}}
-
-###
-
-POST {{Users.API_HostAddress}}/weatherforecast/generate?count=-3
-Content-Type: application/json
-{
-  "Min": -23,
-  "Max": 23
-}
