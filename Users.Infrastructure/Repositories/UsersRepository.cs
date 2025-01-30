@@ -12,4 +12,9 @@ internal class UsersRepository(UsersDbContext DbContext) : IUsersRepository
         var users = await DbContext.Users.ToListAsync();
         return users;
     }
+    public async Task<User?> GetUserByIdAsync(int id)
+    {
+        var user = await DbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+        return user;
+    }
 }

@@ -6,3 +6,7 @@
 GET {{Users.API_HostAddress}}/api/Users/
 
 ###
+
+GET {{Users.API_HostAddress}}/api/Users/1
+
+###

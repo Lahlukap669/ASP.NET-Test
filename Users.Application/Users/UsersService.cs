@@ -12,4 +12,10 @@ internal class UsersService(IUsersRepository UsersRepository, ILogger<UsersServi
         var users = UsersRepository.GetAllAsync();
         return users;
     }
+    public Task<User?> GetUserById(int id)
+    {
+        logger.LogInformation("Getting User by ID");
+        var user = UsersRepository.GetUserByIdAsync(id);
+        return user;
+    }
 }
