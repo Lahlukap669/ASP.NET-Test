@@ -1,10 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
+using Users.Application.Users.Dtos;
 using Users.Domain.Entities;
 using Users.Domain.Repositories;
 
 namespace Users.Application.Users;
 
-internal class UsersService(IUsersRepository UsersRepository, ILogger<UsersService> logger) : IUsersService
+internal class UsersService(IUsersRepository UsersRepository,
+    ILogger<UsersService> logger, 
+    IMapper mapper) : IUsersService
 {
     public Task<IEnumerable<User>> GetAllUsers()
     {
@@ -17,5 +21,13 @@ internal class UsersService(IUsersRepository UsersRepository, ILogger<UsersServi
         logger.LogInformation("Getting User by ID");
         var user = UsersRepository.GetUserByIdAsync(id);
         return user;
+    }
+    public async Task<int> Create(CreateUserDto dto) 
+    {
+        logger.LogInformation("Creating new user");
+
+        var user = mapper.Map<User>(dto);
+        int id = await UsersRepository.Create(user);
+        return id;
     }
 }

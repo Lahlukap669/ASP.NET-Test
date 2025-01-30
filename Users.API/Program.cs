@@ -1,6 +1,7 @@
 using Users.Infrastructure.Extensions;
 using Users.Infrastructure.Seeders;
 using Users.Application.Extensions;
+using Users.Application.Users.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddApplication();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddAutoMapper(typeof(UsersProfile));
 
 var app = builder.Build();
 

@@ -17,4 +17,10 @@ internal class UsersRepository(UsersDbContext DbContext) : IUsersRepository
         var user = await DbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
         return user;
     }
+    public async Task<int> Create(User entity)
+    {
+        DbContext.Users.Add(entity);
+        await DbContext.SaveChangesAsync();
+        return entity.Id;
+    }
 }

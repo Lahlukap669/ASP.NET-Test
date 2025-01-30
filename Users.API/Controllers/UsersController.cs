@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Users.Application.Users;
+using Users.Application.Users.Dtos;
 
 namespace Users.API.Controllers;
 
@@ -22,5 +23,11 @@ public class UsersController(IUsersService UsersService) : ControllerBase
             return NotFound();
         }
         return Ok(user);
+    }
+    [HttpPost]
+    public async Task<IActionResult> CreateRestaurant([FromBody] CreateUserDto createUserDto) 
+    {
+        int id = await UsersService.Create(createUserDto);
+        return CreatedAtAction(nameof(GetById), new { id }, null);
     }
 }

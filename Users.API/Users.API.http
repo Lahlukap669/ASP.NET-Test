@@ -7,6 +7,18 @@ GET {{Users.API_HostAddress}}/api/Users/
 
 ###
 
-GET {{Users.API_HostAddress}}/api/Users/1
+GET {{Users.API_HostAddress}}/api/Users/3
 
 ###
+
+POST {{Users.API_HostAddress}}/api/Users/
+Content-Type: application/json
+{
+  "userName": "MikroCop",
+  "fullName": "MikroCop",
+  "email": "MikroCop@gmail.com",
+  "mobile": "/",
+  "language": "English",
+  "culture": "Christian",
+  "password": "User"
+}
