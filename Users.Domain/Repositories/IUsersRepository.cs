@@ -7,4 +7,5 @@ public interface IUsersRepository
     Task<IEnumerable<User>> GetAllAsync();
     Task<User?> GetUserByIdAsync(int id);
     Task<int> Create(User entity);
+    Task Delete(User entity);
 }

@@ -9,7 +9,9 @@ namespace Users.Application.Extensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IUsersService, UsersService>();
+            var applicationAssembly = typeof(ServiceCollectionExtensions).Assembly;
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(applicationAssembly));
+            services.AddAutoMapper(applicationAssembly);
         }
     }
 }

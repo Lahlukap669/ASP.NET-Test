@@ -7,7 +7,7 @@ GET {{Users.API_HostAddress}}/api/Users/
 
 ###
 
-GET {{Users.API_HostAddress}}/api/Users/3
+GET {{Users.API_HostAddress}}/api/Users/4
 
 ###
 
@@ -22,3 +22,6 @@ Content-Type: application/json
   "culture": "Christian",
   "password": "User"
 }
+###
+
+DELETE {{Users.API_HostAddress}}/api/Users/4

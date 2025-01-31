@@ -1,5 +1,6 @@
 ﻿using Users.Domain.Entities;
 using AutoMapper;
+using Users.Application.Users.Commands.CreateUser;
 
 namespace Users.Application.Users.Dtos
 {
@@ -7,7 +8,7 @@ namespace Users.Application.Users.Dtos
     {
         public UsersProfile() 
         {
-            CreateMap<CreateUserDto, User>();
+            CreateMap<CreateUserCommand, User>();
         }
     }
 }

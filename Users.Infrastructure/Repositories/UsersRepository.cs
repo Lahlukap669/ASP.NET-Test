@@ -23,4 +23,9 @@ internal class UsersRepository(UsersDbContext DbContext) : IUsersRepository
         await DbContext.SaveChangesAsync();
         return entity.Id;
     }
+    public async Task Delete(User entity)
+    {
+        DbContext.Remove(entity);
+        await DbContext.SaveChangesAsync();
+    }
 }
