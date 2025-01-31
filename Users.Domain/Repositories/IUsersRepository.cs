@@ -9,4 +9,5 @@ public interface IUsersRepository
     Task<int> Create(User entity);
     Task Delete(User entity);
     Task Update();
+    Task<bool> Validate(string email, string password);
 }

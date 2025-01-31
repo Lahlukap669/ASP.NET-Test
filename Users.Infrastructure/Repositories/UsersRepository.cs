@@ -30,4 +30,16 @@ internal class UsersRepository(UsersDbContext DbContext) : IUsersRepository
     }
     public Task Update()
         => DbContext.SaveChangesAsync();
+    public async Task<bool> Validate(string email, string password)
+    {
+        var user = await DbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+        if (user == null)
+        {
+            return false;
+        }
+
+        // Assumed that hashing is done on FrontEnd
+        return user.Password == password;
+    }
 }
+

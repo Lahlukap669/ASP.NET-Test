@@ -19,7 +19,7 @@ builder.Services.AddAutoMapper(typeof(UsersProfile));
 builder.Host.UseSerilog((context, configuration) =>
     configuration
         .ReadFrom.Configuration(context.Configuration)
-        .Enrich.FromLogContext() // Ensure dynamic log context enrichment
+        .Enrich.FromLogContext()
 );
 
 var app = builder.Build();

@@ -8,6 +8,7 @@ using Users.Application.Users.Commands.CreateUser;
 using Users.Application.Users.Commands.DeleteUser;
 using Users.Application.Users.Commands.UpdateUser;
 using Users.Domain.Entities;
+using Users.Application.Users.Queries.ValidateUser;
 
 namespace Users.API.Controllers;
 
@@ -61,5 +62,24 @@ public class UsersController(IMediator mediator) : ControllerBase
             return NoContent();
         }
         return NotFound();
+    }
+    [HttpPost("validate-credentials")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> ValidateCredentials([FromBody] ValidateUserCredentialsQuery query)
+    {
+        if (string.IsNullOrWhiteSpace(query.Email) || string.IsNullOrWhiteSpace(query.Password))
+        {
+            return BadRequest("Email and password must not be empty.");
+        }
+
+        var isValid = await mediator.Send(query);
+
+        if (isValid)
+        {
+            return Ok("Credentials are valid.");
+        }
+
+        return BadRequest("Invalid email or password.");
     }
 }

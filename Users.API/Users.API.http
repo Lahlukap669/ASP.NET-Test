@@ -38,3 +38,12 @@ Content-Type: application/json
   "culture": "Christian",
   "password": "luka123"
 }
+
+###
+
+POST {{Users.API_HostAddress}}/api/Users/validate-credentials/
+Content-Type: application/json
+{
+  "email": "luka11.lah@gmail.com",
+  "password": "luka123"
+}
