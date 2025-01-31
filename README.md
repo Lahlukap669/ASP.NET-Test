@@ -78,7 +78,9 @@ Deletes a user by ID.
 
 
 ## Docs
+
 Docs are eccessible via Root connection to the project under endpoint swagger (localhost:7250/swagger) as seen in the picture below. To get access, docs must first be authenticated with APIKey.
+
 ![alt text](https://github.com/Lahlukap669/ASP.NET-Test/blob/master/Swagger.png)
 
 ## Database
