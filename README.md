@@ -27,4 +27,4 @@ This project uses several NuGet packages and libraries to achieve its functional
 ### Prerequisites
 
 ### Docs
-![alt text](https://github.com/Lahlukap669/ASP.NET-Test/Swagger.png)
+![alt text](https://github.com/Lahlukap669/ASP.NET-Test/blob/master/Swagger.png)
