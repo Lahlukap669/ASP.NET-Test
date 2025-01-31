@@ -3,6 +3,7 @@ using Users.Infrastructure.Seeders;
 using Users.Application.Extensions;
 using Users.Application.Users.Dtos;
 using Serilog;
+using Users.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddApplication();
 
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -22,6 +24,14 @@ builder.Host.UseSerilog((context, configuration) =>
 
 var app = builder.Build();
 
+var scope = app.Services.CreateScope();
+
+var seeder = scope.ServiceProvider.GetRequiredService<IUserSeeder>();
+
+await seeder.Seed();
+
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.Use(async (context, next) =>
 {
     var clientIp = context.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
@@ -29,11 +39,7 @@ app.Use(async (context, next) =>
     await next.Invoke();
 });
 
-var scope = app.Services.CreateScope();
 
-var seeder = scope.ServiceProvider.GetRequiredService<IUserSeeder>();
-
-await seeder.Seed();
 // Configure the HTTP request pipeline.
 
 app.UseSerilogRequestLogging();
