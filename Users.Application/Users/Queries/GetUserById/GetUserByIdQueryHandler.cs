@@ -11,7 +11,7 @@ public class GetUserByIdQueryHandler(ILogger<GetUserByIdQueryHandler> logger,
 {
     public async Task<User?> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Getting User by ID");
+        logger.LogInformation("Getting User by id: {UserId}", request.Id);
         var user = await UsersRepository.GetUserByIdAsync(request.Id);
         return user;
     }

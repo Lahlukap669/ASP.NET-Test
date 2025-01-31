@@ -13,7 +13,7 @@ namespace Users.Infrastructure.Extensions
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration) 
         {
             var connectionString = configuration.GetConnectionString("UsersDb");
-            services.AddDbContext<UsersDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<UsersDbContext>(options => options.UseSqlServer(connectionString).EnableSensitiveDataLogging());
 
             services.AddScoped<IUserSeeder, UserSeeder>();
             services.AddScoped<IUsersRepository, UsersRepository>();

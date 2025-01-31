@@ -13,7 +13,7 @@ public class UpdateUserCommandHandler(ILogger<UpdateUserCommandHandler> logger,
 {
     public async Task<bool> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
-        logger.LogInformation($"Updating user with id : {request.Id}");
+        logger.LogInformation("Updating user with id : {requestId} with {@UpdatedUser}", request.Id, request);
         var user = await UsersRepository.GetUserByIdAsync(request.Id);
         if (user is null)
         {
