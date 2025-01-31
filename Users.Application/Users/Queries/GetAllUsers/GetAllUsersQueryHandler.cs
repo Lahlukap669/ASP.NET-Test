@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Users.Domain.Entities;
 using Users.Domain.Repositories;
 
-namespace Users.Application.Users.Commands.Queries.GetAllUsers;
+namespace Users.Application.Users.Queries.GetAllUsers;
 
 public class GetAllUsersQueryHandler(ILogger<GetAllUsersQueryHandler> logger,
     IUsersRepository UsersRepository) : IRequestHandler<GetAllUsersQuery, IEnumerable<User>>

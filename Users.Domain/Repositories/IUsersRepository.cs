@@ -8,4 +8,5 @@ public interface IUsersRepository
     Task<User?> GetUserByIdAsync(int id);
     Task<int> Create(User entity);
     Task Delete(User entity);
+    Task Update();
 }

@@ -2,7 +2,7 @@
 using MediatR;
 using Users.Domain.Entities;
 
-namespace Users.Application.Users.Commands.Queries.GetUserById;
+namespace Users.Application.Users.Queries.GetUserById;
 
 public class GetUserByIdQuery(int id) : IRequest<User?>
 {

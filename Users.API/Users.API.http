@@ -25,3 +25,16 @@ Content-Type: application/json
 ###
 
 DELETE {{Users.API_HostAddress}}/api/Users/4
+
+###
+
+PATCH {{Users.API_HostAddress}}/api/Users/2
+Content-Type: application/json
+{
+
+  "fullName": "Luka Lah",
+  "email": "luka11.lah@gmail.com",
+  "mobile": "+38640570989",
+  "culture": "Christian",
+  "password": "luka123"
+}

@@ -2,10 +2,11 @@
 using Users.Application.Users;
 using Users.Application.Users.Dtos;
 using MediatR;
-using Users.Application.Users.Commands.Queries.GetAllUsers;
-using Users.Application.Users.Commands.Queries.GetUserById;
+using Users.Application.Users.Queries.GetAllUsers;
+using Users.Application.Users.Queries.GetUserById;
 using Users.Application.Users.Commands.CreateUser;
 using Users.Application.Users.Commands.DeleteUser;
+using Users.Application.Users.Commands.UpdateUser;
 
 namespace Users.API.Controllers;
 
@@ -44,5 +45,16 @@ public class UsersController(IMediator mediator) : ControllerBase
     {
         int id = await mediator.Send(command);
         return CreatedAtAction(nameof(GetById), new { id }, null);
+    }
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> UpdateUser([FromRoute] int id, UpdateUserCommand command)
+    {
+        command.Id = id;
+        var isUpdated = await mediator.Send(command);
+        if (isUpdated)
+        {
+            return NoContent();
+        }
+        return NotFound();
     }
 }

@@ -28,4 +28,6 @@ internal class UsersRepository(UsersDbContext DbContext) : IUsersRepository
         DbContext.Remove(entity);
         await DbContext.SaveChangesAsync();
     }
+    public Task Update()
+        => DbContext.SaveChangesAsync();
 }
