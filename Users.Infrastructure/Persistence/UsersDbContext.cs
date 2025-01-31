@@ -11,5 +11,6 @@ namespace Users.Infrastructure.Persistence
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<ApiKey> ApiKeys { get; set; }
     }
 }

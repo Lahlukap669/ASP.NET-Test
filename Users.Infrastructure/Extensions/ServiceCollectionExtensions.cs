@@ -16,6 +16,7 @@ namespace Users.Infrastructure.Extensions
             services.AddDbContext<UsersDbContext>(options => options.UseSqlServer(connectionString).EnableSensitiveDataLogging());
 
             services.AddScoped<IUserSeeder, UserSeeder>();
+            services.AddScoped<IApiKeySeeder, ApiKeySeeder>();
             services.AddScoped<IUsersRepository, UsersRepository>();
         }
     }

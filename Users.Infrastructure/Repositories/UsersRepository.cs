@@ -41,5 +41,20 @@ internal class UsersRepository(UsersDbContext DbContext) : IUsersRepository
         // Assumed that hashing is done on FrontEnd
         return user.Password == password;
     }
+    public async Task AddApiKeyAsync(ApiKey apiKey)
+    {
+        DbContext.Add(apiKey);
+        await DbContext.SaveChangesAsync();
+    }
+
+    public async Task<ApiKey?> GetApiKeyAsync(string key)
+    {
+        return await DbContext.ApiKeys.FirstOrDefaultAsync(k => k.Key == key);
+    }
+
+    public async Task<bool> ApiKeyExistsAsync(string key)
+    {
+        return await DbContext.ApiKeys.AnyAsync(k => k.Key == key);
+    }
 }
 

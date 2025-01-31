@@ -10,4 +10,7 @@ public interface IUsersRepository
     Task Delete(User entity);
     Task Update();
     Task<bool> Validate(string email, string password);
+    Task AddApiKeyAsync(ApiKey apiKey);
+    Task<ApiKey?> GetApiKeyAsync(string key);
+    Task<bool> ApiKeyExistsAsync(string key);
 }

@@ -9,6 +9,8 @@ using Users.Application.Users.Commands.DeleteUser;
 using Users.Application.Users.Commands.UpdateUser;
 using Users.Domain.Entities;
 using Users.Application.Users.Queries.ValidateUser;
+using Users.Application.Users.Commands.CreateApiKey;
+using Users.Application.Users.Queries.ValidateApiKey;
 
 namespace Users.API.Controllers;
 
@@ -82,4 +84,25 @@ public class UsersController(IMediator mediator) : ControllerBase
 
         return BadRequest("Invalid email or password.");
     }
+    [HttpPost("generate-api-key")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    public async Task<IActionResult> GenerateApiKey([FromBody] CreateApiKeyCommand command)
+    {
+        var apiKey = await mediator.Send(command);
+        return Created("", new { ApiKey = apiKey });
+    }
+
+    [HttpPost("validate-api-key")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> ValidateApiKey([FromBody] ValidateApiKeyQuery query)
+    {
+        var isValid = await mediator.Send(query);
+        if (!isValid)
+        {
+            return BadRequest("Invalid API Key.");
+        }
+        return Ok("API Key is valid.");
+    }
+
 }

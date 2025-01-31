@@ -1,17 +1,22 @@
 @Host = https://localhost
 @Port = 7250
-
 @Users.API_HostAddress = {{Host}}:{{Port}}
+@ApiKey = cCgO8K8UmiwBS7g3Ljw
+
+###
 
 GET {{Users.API_HostAddress}}/api/Users/
+X-API-KEY: {{ApiKey}}
 
 ###
 
 GET {{Users.API_HostAddress}}/api/Users/2
+X-API-KEY: {{ApiKey}}
 
 ###
 
 POST {{Users.API_HostAddress}}/api/Users/
+X-API-KEY: {{ApiKey}}
 Content-Type: application/json
 {
   "userName": "MikroCop2",
@@ -22,16 +27,18 @@ Content-Type: application/json
   "culture": "Christian",
   "password": "User"
 }
+
 ###
 
 DELETE {{Users.API_HostAddress}}/api/Users/4
+X-API-KEY: {{ApiKey}}
 
 ###
 
 PATCH {{Users.API_HostAddress}}/api/Users/2
+X-API-KEY: {{ApiKey}}
 Content-Type: application/json
 {
-
   "fullName": "Luka Lah",
   "email": "luka11.lah@gmail.com",
   "mobile": "+38640570989",
@@ -42,6 +49,7 @@ Content-Type: application/json
 ###
 
 POST {{Users.API_HostAddress}}/api/Users/validate-credentials/
+X-API-KEY: {{ApiKey}}
 Content-Type: application/json
 {
   "email": "luka11.lah@gmail.com",
