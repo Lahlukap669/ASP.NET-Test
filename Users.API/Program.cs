@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-
+builder.Services.AddSwaggerGen();
 builder.Services.AddApplication();
 
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -36,10 +36,11 @@ var seeder = scope.ServiceProvider.GetRequiredService<IUserSeeder>();
 await seeder.Seed();
 // Configure the HTTP request pipeline.
 
+app.UseSerilogRequestLogging();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
-app.UseSerilogRequestLogging();
-
 app.UseAuthorization();
 
 app.MapControllers();

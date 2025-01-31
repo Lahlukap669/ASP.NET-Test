@@ -7,6 +7,7 @@ using Users.Application.Users.Queries.GetUserById;
 using Users.Application.Users.Commands.CreateUser;
 using Users.Application.Users.Commands.DeleteUser;
 using Users.Application.Users.Commands.UpdateUser;
+using Users.Domain.Entities;
 
 namespace Users.API.Controllers;
 
@@ -15,14 +16,14 @@ namespace Users.API.Controllers;
 public class UsersController(IMediator mediator) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetAll() 
+    public async Task<ActionResult<IEnumerable<User>>> GetAll() 
     {
         var users = await mediator.Send(new GetAllUsersQuery());
         return Ok(users);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById([FromRoute] int id) 
+    public async Task<ActionResult<User?>> GetById([FromRoute] int id) 
     {
         var user = await mediator.Send(new GetUserByIdQuery(id));
         if (user is null) {
@@ -31,6 +32,8 @@ public class UsersController(IMediator mediator) : ControllerBase
         return Ok(user);
     }
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteUser([FromRoute] int id)
     {
         var isDeleted = await mediator.Send(new DeleteUserCommand(id));
@@ -47,6 +50,8 @@ public class UsersController(IMediator mediator) : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id }, null);
     }
     [HttpPatch("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateUser([FromRoute] int id, UpdateUserCommand command)
     {
         command.Id = id;
