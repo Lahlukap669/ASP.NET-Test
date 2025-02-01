@@ -222,5 +222,5 @@ With at least 1 known ApiKey you can generate new ApiKeys, providing name of new
 
 # Info
 ```C#
-  String AUTHOR = "Luka Lah"; //https://github.com/Lahlukap669
+  string AUTHOR = "Luka Lah"; //https://github.com/Lahlukap669
 ```
