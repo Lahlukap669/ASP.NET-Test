@@ -19,9 +19,9 @@ This project uses several NuGet packages and libraries to achieve its functional
 
 - **Entity Framework**: This is an open-source ORM framework for .NET. It enables developers to work with data using objects of domain-specific classes without focusing on the underlying database tables and columns where this data is stored.
 
-- **AutoMapper**: Enables easier mapping
+- **AutoMapper**: This is an object-to-object mapping library in .NET that simplifies the process of transforming one object type into another, typically used for mapping data transfer objects (DTOs) to domain models and vice versa. It reduces boilerplate code by automatically mapping properties with matching names and types.
 
-- **SwashBuckle**: This enables Swagger tools Docs
+- **SwashBuckle**: This is a library in .NET that integrates Swagger with ASP.NET Core applications, automatically generating interactive API documentation from your application's code and enabling features like testing endpoints directly from the documentation UI.
 
 ## Getting Started
 
