@@ -38,7 +38,24 @@ To build the project, open the `Users.sln` file in Visual Studio and build the s
 
 To run the project, set `Users.API` as the startup project in Visual Studio and start the application.
 
-## API Endpoints
+# API Endpoints
+
+## Endpoints Overview
+
+| Method | Endpoint                          | Auth Required |
+|--------|-----------------------------------|---------------|
+| GET    | `/api/users`                      | Bearer token  |
+| GET    | `/api/users/{id}`                 | Bearer token  |
+| DELETE | `/api/users/{id}`                 | Bearer token  |
+| POST   | `/api/users`                      | Bearer token  |
+| PATCH  | `/api/users/{id}`                 | Bearer token  |
+| POST   | `/api/users/validate-credentials` | Bearer token  |
+| POST   | `/api/users/generate-api-key`     | Bearer token  |
+| POST   | `/api/users/validate-api-key`     | Bearer token  |
+
+---
+
+## Endpoints detailed description
 
 ### 1. `GET /api/users`
 - **Description**: Retrieves all users.
@@ -64,7 +81,7 @@ To run the project, set `Users.API` as the startup project in Visual Studio and 
 
 ---
 
-### 2. `DELETE /api/users/{id}`
+### 3. `DELETE /api/users/{id}`
 - **Description**: Deletes a user by their ID.
 - **Parameters**:
   - `id` (int): The ID of the user.
@@ -77,9 +94,9 @@ To run the project, set `Users.API` as the startup project in Visual Studio and 
 
 ---
 
-### 3. `POST /api/users`
+### 4. `POST /api/users`
 - **Description**: Creates a new user.
-- **Parameters**:
+- **Parameters**: 
   - **Body**:
   ```json
   {
@@ -95,45 +112,115 @@ To run the project, set `Users.API` as the startup project in Visual Studio and 
 - **Headers**: 
   - `X-Api-Key` (string): API Key for authentication.
 - **Response**: 
-  - `204 No Content`: Returns Empty content.
-  - `404 Not Found`: User with the given ID does not exist.
+  - `201 Created`: User is created successfully.
+  - `400 Bad Request`: Validation errors.
   - `401 Unauthorized`: API Key is missing or invalid. 
 
 ---
 
-### 4. `DELETE /api/users/{id}`
-- **Description**: Deletes a user by their ID.
+### 5. `PATCH /api/users/{id}`
+- **Description**: Updates user details.
 - **Parameters**:
-  - `id` (int): The ID of the user.
+  - `id` (int): The ID of the user to be updated.
 - **Headers**: 
   - `X-Api-Key` (string): API Key for authentication.
+- **Body**:
+```json
+  {
+    "fullName": "string",
+    "email": "string",
+    "mobile": "string",
+    "language": "string",
+    "culture": "string",
+    "password": "string"
+  }
+
+```
 - **Response**: 
   - `204 No Content`: Returns Empty content.
   - `404 Not Found`: User with the given ID does not exist.
+  - `401 Unauthorized`: API Key is missing or invalid.
+
+ ---
+
+ ### 6. `POST /api/users/validate-credentials`
+- **Description**: Validates user credentials.
+- **Parameters**: 
+  - **Body**:
+  ```json
+  {
+    "email": "string",
+    "password": "string"
+  }
+  ```
+- **Headers**: 
+  - `X-Api-Key` (string): API Key for authentication.
+- **Response**: 
+  - `200 OK`: Credentials are valid.
+  - `400 Bad Request`: Validation errors.
   - `401 Unauthorized`: API Key is missing or invalid. 
 
+---
 
+ ### 7. `POST /api/users/generate-api-key`
+- **Description**: Generates a new API key for a client.
+- **Parameters**: 
+  - **Body**:
+  ```json
+  {
+    "clientName": "string"
+  }
+  ```
+- **Headers**: 
+  - `X-Api-Key` (string): API Key for authentication.
+- **Response**: 
+  - `201 Created`: Returns the newly generated API key.
+  - `400 Bad Request`: Validation errors.
+  - `401 Unauthorized`: API Key is missing or invalid.
+ 
+---
+
+ ### 8. `POST /api/users/validate-api-key`
+- **Description**: Validates an API key.
+- **Parameters**: 
+  - **Body**:
+  ```json
+  {
+    "key": "string"
+  }
+  ```
+- **Headers**: 
+  - `X-Api-Key` (string): API Key for authentication.
+- **Response**: 
+  - `200 OK`: API Key is valid.
+  - `400 Bad Request`: Validation errors.
+  - `401 Unauthorized`: API Key is missing or invalid.
+
+---
 
 ## Docs
 
-Docs are eccessible via Root connection to the project under endpoint swagger (localhost:7250/swagger) as seen in the picture below. To get access, docs must first be authenticated with APIKey.
+Docs are accessible via Root connection to the project under endpoint swagger (localhost:7250/swagger) as seen in the picture below. To get access, docs must first be authenticated with APIKey.
 
 ![alt text](https://github.com/Lahlukap669/ASP.NET-Test/blob/master/Swagger.png)
 
 ## Database
-Database is created with EF (EntityFramework) from microsoft. It should already be set once project is cloned or forked (migration exists in files). If it breaks the recommended steps are:
+Database is created with EF (EntityFramework) from microsoft which in background uses SQL. It should already be set once project is cloned or forked (migration exists in files). If it breaks the recommended steps are:
 - Navigate to Package Manager Console (StartUpProject:Users.API, DefaultProject:Users.Infrastructure)
 - Remove current database if exists: `drop-database`
 - Manually delete migration folder (and all migrations)
 - Create new migration `add-migration name`
 - Sync changes to Database `update-database`
 
-We have seeder files that will populate empty tables User and ApiKey. Now how to get APIKey ... Recommended use of azure data studio (connect to database -> dbname should be UsersDb) and make a costum query like `SELECT * FROM ApiKey`. Copy APIKey and you should be set. CURRENT APIKEY IS SET IN Users.API.Http !!!
+We have seeder files that will populate empty tables User and ApiKey. Now how to get APIKey => Recommended use of azure data studio => connect to database with DbString in project's appSettings (dbname should be UsersDb) => make a costum query like `SELECT * FROM ApiKey`. Copy APIKey and you should be set. CURRENT APIKEY IS SET IN Users.API.Http !!!
 
 ## ApiKey
-With at least 1 know ApiKey you can generate new ApiKeys, providing name of new client.
+With at least 1 known ApiKey you can generate new ApiKeys, providing name of new client.
+
+## Disclaimer
+- Authentication and authorization would otherwise be implemented using Microsoft VS extensions such as ASP.NET Identity, but the instructions wanted APIKey and Not Client Login or MFA.
 
 # Info
 ```C#
-String AUTHOR = "Luka Lah"; //https://github.com/Lahlukap669
+  String AUTHOR = "Luka Lah"; //https://github.com/Lahlukap669
 ```
